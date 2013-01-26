@@ -2,7 +2,7 @@
 /**
  * PHP Type Converter
  *
- * @package   GaryJones\PhpTypeConverter
+ * @package   GaryJones\TypeConverter
  * @copyright Copyright 2006-2012, Miles Johnson - http://milesj.me
  *            Additions, Copyright 2013 Gary Jones
  * @author    Miles Johnson
@@ -19,7 +19,7 @@ namespace GaryJones\TypeConverter;
  *
  * The current formats are supported: XML, JSON, Array, Object, Serialized.
  *
- * @package GaryJones\PhpTypeConverter
+ * @package GaryJones\TypeConverter
  * @author  Miles Johnson
  * @author  Gary Jones <gary@garyjones.co.uk>
  */

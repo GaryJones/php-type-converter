@@ -1,8 +1,15 @@
 <?php
+/**
+ * PHP Type Converter
+ *
+ * @package   GaryJones\TypeConverter
+ * @copyright Copyright 2012 Gary Jones
+ * @author    Gary Jones <gary@garyjones.co.uk>
+ * @license	  http://opensource.org/licenses/mit-license.php MIT
+ * @link      https://github.com/GaryJones/php-type-converter
+ */
 
-namespace mjohnson\utility\tests;
-
-use mjohnson\utility\TypeConverter;
+namespace GaryJones\TypeConverter;
 
 class ToXmlTest extends \PHPUnit_Framework_TestCase
 {
