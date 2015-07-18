@@ -13,13 +13,23 @@ namespace GaryJones\TypeConverter;
 
 class ToXmlTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var TypeConverter
+     */
+    private $typeConverter;
+    
+    public function setUp()
+    {
+        $this->typeConverter = new TypeConverter;    
+    }
+    
 	public function testBasicArrayToXml() {
 		$data = array('is' => 'array');
 
-		$this->assertTrue(TypeConverter::isArray($data));
+		$this->assertTrue($this->typeConverter->isArray($data));
 
 		$expected_xml = $this->getXmlDeclaration() . '<root><is>array</is></root>';
-		$actual_xml   = TypeConverter::toXml($data);
+		$actual_xml   = $this->typeConverter->toXml($data);
 
 		$this->assertXMLStringEqualsXmlString($expected_xml, $actual_xml);
 	}
@@ -27,10 +37,10 @@ class ToXmlTest extends \PHPUnit_Framework_TestCase
 	public function testBasicJsonToXml() {
 		$data = json_encode(array('is' => 'json'));
 
-		$this->assertTrue(TypeConverter::isJson($data));
+		$this->assertTrue($this->typeConverter->isJson($data));
 
 		$expected_xml = $this->getXmlDeclaration() . '<root><is>json</is></root>';
-		$actual_xml   = TypeConverter::toXml($data);
+		$actual_xml   = $this->typeConverter->toXml($data);
 
 		$this->assertXMLStringEqualsXmlString($expected_xml, $actual_xml);
 	}
@@ -38,10 +48,10 @@ class ToXmlTest extends \PHPUnit_Framework_TestCase
 	public function testBasicSerializeToXml() {
 		$data = serialize(array('is' => 'serialize'));
 
-		$this->assertTrue(TypeConverter::isSerialized($data));
+		$this->assertTrue($this->typeConverter->isSerialized($data));
 
 		$expected_xml = $this->getXmlDeclaration() . '<root><is>serialize</is></root>';
-		$actual_xml   = TypeConverter::toXml($data);
+		$actual_xml   = $this->typeConverter->toXml($data);
 
 		$this->assertXMLStringEqualsXmlString($expected_xml, $actual_xml);
 	}
@@ -49,10 +59,10 @@ class ToXmlTest extends \PHPUnit_Framework_TestCase
 	public function testBasicXmlToXml() {
 		$data = simplexml_load_string('<root><is>xml</is></root>');
 
-		$this->assertTrue(TypeConverter::isXml($data));
+		$this->assertTrue($this->typeConverter->isXml($data));
 
 		$expected_xml = $this->getXmlDeclaration() . '<root><is>xml</is></root>';
-		$actual_xml   = TypeConverter::toXml($data);
+		$actual_xml   = $this->typeConverter->toXml($data);
 
 		$this->assertXMLStringEqualsXmlString($expected_xml, $actual_xml);
 	}
@@ -63,7 +73,7 @@ class ToXmlTest extends \PHPUnit_Framework_TestCase
 		$data = $this->createObject(1);
 
 		// Convert to XML, with root of 'root' and tag wrappers of 'item'
-		$actual_xml = TypeConverter::toXml($data);
+		$actual_xml = $this->typeConverter->toXml($data);
 
 		// Compose expected XML structure
 		$expected_xml = $this->getXmlDeclaration() . '<root><id>1</id><name>Object 1</name></root>';
@@ -78,7 +88,7 @@ class ToXmlTest extends \PHPUnit_Framework_TestCase
 		$data = $this->createComplexObject(1);
 
 		// Convert to XML, with root of 'root' and tag wrappers of 'item'
-		$actual_xml = TypeConverter::toXml($data);
+		$actual_xml = $this->typeConverter->toXml($data);
 
 		// Compose expected XML structure
 		$expected_xml = $this->getXmlDeclaration()
@@ -94,7 +104,7 @@ class ToXmlTest extends \PHPUnit_Framework_TestCase
 		// Now check optional parameters to toXml()
 
 		// Convert to XML, with root of 'notroot' and tag wrappers of 'article'
-		$actual_xml = TypeConverter::toXml($data, 'notroot', 'article');
+		$actual_xml = $this->typeConverter->toXml($data, 'notroot', 'article');
 
 		// Compose expected XML structure
 		$expected_xml = $this->getXmlDeclaration()
@@ -119,7 +129,7 @@ class ToXmlTest extends \PHPUnit_Framework_TestCase
 		$data = array($object1, $object2, $object3);
 
 		// Convert to XML, with root of 'root' and tag wrappers of 'item'
-		$actual_xml = TypeConverter::toXml($data);
+		$actual_xml = $this->typeConverter->toXml($data);
 
 		// Compose expected XML structure
 		$expected_xml = $this->getXmlDeclaration()
@@ -143,7 +153,7 @@ class ToXmlTest extends \PHPUnit_Framework_TestCase
 		$data = array($object1, $object2, $object3);
 
 		// Convert to XML, with root of 'root' and tag wrappers of 'item'
-		$actual_xml = TypeConverter::toXml($data);
+		$actual_xml = $this->typeConverter->toXml($data);
 
 		// Compose expected XML structure
 		$expected_xml = $this->getXmlDeclaration() . '<root>'
@@ -167,7 +177,7 @@ class ToXmlTest extends \PHPUnit_Framework_TestCase
 		// Now check with single string tag.
 
 		// Convert to XML, with root of 'root' and tag wrappers of 'item'
-		$actual_xml = TypeConverter::toXml($data, 'root', 'article');
+		$actual_xml = $this->typeConverter->toXml($data, 'root', 'article');
 
 		// Compose expected XML structure
 		$expected_xml = $this->getXmlDeclaration() . '<root>'
@@ -193,7 +203,7 @@ class ToXmlTest extends \PHPUnit_Framework_TestCase
 		// Now check with array of tags.
 
 		// Convert to XML, with root of 'root' and tag wrappers of 'item'
-		$actual_xml = TypeConverter::toXml($data, 'root', array('outer', 'inner'));
+		$actual_xml = $this->typeConverter->toXml($data, 'root', array('outer', 'inner'));
 
 		// Compose expected XML structure
 		$expected_xml = $this->getXmlDeclaration() . '<root>'

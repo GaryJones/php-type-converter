@@ -40,40 +40,41 @@ $object	= new \stdClass();
 $object->is = 'object';
 
 // Determine the type
-debug('TypeConverter::is()');
-debug(TypeConverter::is($array));
-debug(TypeConverter::is($object));
-debug(TypeConverter::is($json));
-debug(TypeConverter::is($ser));
-debug(TypeConverter::is($xml));
+$typeConverter = new TypeConverter;
+debug('$typeConverter->is()');
+debug($typeConverter->is($array));
+debug($typeConverter->is($object));
+debug($typeConverter->is($json));
+debug($typeConverter->is($ser));
+debug($typeConverter->is($xml));
 
 // Validate against all types
 foreach (array('isArray', 'isObject', 'isJson', 'isSerialized', 'isXml') as $method) {
-	debug('TypeConverter::'. $method .'()');
+	debug('$typeConverter->'. $method .'()');
 
-	dump('array', TypeConverter::$method($array));
-	dump('object', TypeConverter::$method($object));
-	dump('json', TypeConverter::$method($json));
-	dump('serialize', TypeConverter::$method($ser));
-	dump('xml', TypeConverter::$method($xml));
+	dump('array', $typeConverter->$method($array));
+	dump('object', $typeConverter->$method($object));
+	dump('json', $typeConverter->$method($json));
+	dump('serialize', $typeConverter->$method($ser));
+	dump('xml', $typeConverter->$method($xml));
 }
 
 // Convert all the types
 foreach (array('toArray', 'toObject', 'toJson', 'toSerialize', 'toXml') as $method) {
-	debug('TypeConverter::'. $method .'()');
+	debug('$typeConverter->'. $method .'()');
 
 	if ($method == 'toXml') {
-		debug(htmlentities(TypeConverter::toXml($array)));
-		debug(htmlentities(TypeConverter::toXml($object)));
-		debug(htmlentities(TypeConverter::toXml($json)));
-		debug(htmlentities(TypeConverter::toXml($ser)));
-		debug(htmlentities(TypeConverter::toXml($xml)));
+		debug(htmlentities($typeConverter->toXml($array)));
+		debug(htmlentities($typeConverter->toXml($object)));
+		debug(htmlentities($typeConverter->toXml($json)));
+		debug(htmlentities($typeConverter->toXml($ser)));
+		debug(htmlentities($typeConverter->toXml($xml)));
 	} else {
-		debug(TypeConverter::$method($array));
-		debug(TypeConverter::$method($object));
-		debug(TypeConverter::$method($json));
-		debug(TypeConverter::$method($ser));
-		debug(TypeConverter::$method($xml));
+		debug($typeConverter->$method($array));
+		debug($typeConverter->$method($object));
+		debug($typeConverter->$method($json));
+		debug($typeConverter->$method($ser));
+		debug($typeConverter->$method($xml));
 	}
 }
 
@@ -81,20 +82,20 @@ foreach (array('toArray', 'toObject', 'toJson', 'toSerialize', 'toXml') as $meth
 $xml = file_get_contents('test.xml');
 
 foreach (array('none', 'merge', 'group', 'overwrite') as $format) {
-	debug('TypeConverter::xmlToArray('. $format .')');
+	debug('$typeConverter->xmlToArray('. $format .')');
 
 	switch ($format) {
 		case 'none':
-			debug(TypeConverter::xmlToArray($xml, TypeConverter::XML_NONE));
+			debug($typeConverter->xmlToArray($xml, TypeConverter::XML_NONE));
 		break;
 		case 'merge':
-			debug(TypeConverter::xmlToArray($xml, TypeConverter::XML_MERGE));
+			debug($typeConverter->xmlToArray($xml, TypeConverter::XML_MERGE));
 		break;
 		case 'group':
-			debug(TypeConverter::xmlToArray($xml, TypeConverter::XML_GROUP));
+			debug($typeConverter->xmlToArray($xml, TypeConverter::XML_GROUP));
 		break;
 		case 'overwrite':
-			debug(TypeConverter::xmlToArray($xml, TypeConverter::XML_OVERWRITE));
+			debug($typeConverter->xmlToArray($xml, TypeConverter::XML_OVERWRITE));
 		break;
 	}
 }
@@ -103,8 +104,8 @@ foreach (array('none', 'merge', 'group', 'overwrite') as $format) {
 $json = array('j\'étais', 'joué', '中文', 'éáíúűóüöäÍÓ');
 
 debug($json);
-debug(TypeConverter::utf8Encode($json));
-debug(TypeConverter::utf8Decode(TypeConverter::utf8Encode($json))); ?>
+debug($typeConverter->utf8Encode($json));
+debug($typeConverter->utf8Decode($typeConverter->utf8Encode($json))); ?>
 
 </body>
 </html>
